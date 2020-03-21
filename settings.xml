@@ -8,6 +8,11 @@
 			<username>${env.REPO_USER_NAME}</username>
 			<password>${env.REPO_API_KEY}</password>
 		</server>
+		<server>
+			<id>ossrh</id>
+			<username>${env.OSSRH_USER_NAME}</username>
+			<password>${env.OSSRH_PASSWORD}</password>
+		</server>
 	</servers>
 
 	<profiles>
