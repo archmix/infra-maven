@@ -4,29 +4,9 @@
                       https://maven.apache.org/xsd/settings-1.0.0.xsd">
 	<servers>
 		<server>
-			<id>cloudsmith</id>
-			<username>${env.REPO_USER_NAME}</username>
-			<password>${env.REPO_API_KEY}</password>
-		</server>
-		<server>
 			<id>ossrh</id>
 			<username>${env.OSSRH_USER_NAME}</username>
 			<password>${env.OSSRH_PASSWORD}</password>
 		</server>
 	</servers>
-
-	<profiles>
-		<profile>
-			<id>default</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<repositories>
-				<repository>
-					<id>archmix-oss</id>
-					<url>https://dl.cloudsmith.io/public/archmix/oss/maven/</url>
-				</repository>
-			</repositories>
-		</profile>
-	</profiles>
 </settings>
