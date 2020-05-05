@@ -1,0 +1,31 @@
+version: 2.1
+
+orbs:
+  orb-tools: circleci/orb-tools@9.0
+
+workflows:
+  release:
+    jobs:
+      - orb-tools/lint
+      - orb-tools/pack
+
+      - orb-tools/publish-dev:
+          orb-name: archmix/maven
+          publish-token-variable: CIRCLECI_API_TOKEN
+          context: Archmix
+          requires:
+            - orb-tools/pack
+            - orb-tools/lint
+
+      - orb-tools/dev-promote-prod-from-commit-subject:
+          orb-name: archmix/maven
+          context: Archmix
+          publish-token-variable: CIRCLECI_API_TOKEN
+          add-pr-comment: false
+          fail-if-semver-not-indicated: true
+          publish-version-tag: false
+          filters:
+            branches:
+              only: master
+          requires:
+            - orb-tools/publish-dev

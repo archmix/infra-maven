@@ -1,0 +1,6 @@
+version: 2.1
+
+description: |
+  Maven orb to be used in all archmix circleci builds
+display:
+  source_url: https://github.com/archmix/infra-maven
