@@ -1,0 +1,12 @@
+machine:
+  image: ubuntu-1604:201903-01
+
+working_directory: ~/repo
+
+environment:
+  MAVEN_OPTS: -Xmx3200m
+
+steps:
+  - checkout
+  - prepare_maven_environment
+  - run: mvn -s settings.xml clean deploy
