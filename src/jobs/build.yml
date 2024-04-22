@@ -1,5 +1,5 @@
 docker:
-  - image: circleci/openjdk:11.0.22
+  - image: cimg/openjdk:11.0.22
 
 working_directory: ~/repo
 
