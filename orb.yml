@@ -30,7 +30,7 @@ jobs:
         environment:
             MAVEN_OPTS: -Xmx3200m
         machine:
-            image: ubuntu-1604:201903-01
+            image: ubuntu-2004:current
         steps:
             - checkout
             - prepare_maven_environment
