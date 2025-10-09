@@ -4,7 +4,7 @@
 
   <groupId>org.archmix</groupId>
   <artifactId>infra-maven</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <packaging>pom</packaging>
 
   <name>Archmix Infra Maven Test</name>
@@ -180,7 +180,7 @@
     <connection>scm:git:ssh://github.com/archmix/${project.artifactId}.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/archmix/${project.artifactId}.git</developerConnection>
     <url>https://github.com/archmix/${project.artifactId}</url>
-    <tag>v1.8</tag>
+    <tag>v0.0.1</tag>
   </scm>
 
   <licenses>
