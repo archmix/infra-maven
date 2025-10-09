@@ -1,0 +1,12 @@
+description: Maven release
+
+steps:
+  - run:
+      name: Configure git credentials
+      command: |
+        git config user.email "ci@archmix.org"
+        git config user.name "Circle CI"
+  - run:
+      name: Releasing version using Maven
+      command: |
+        mvn -DskipTests -P release -B -s settings.xml release:clean release:prepare release:perform -DignoreSnapshots=true

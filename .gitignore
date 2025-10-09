@@ -1,0 +1,7 @@
+maven-repo
+target/
+release.properties
+
+**/target/
+**/maven-repo
+

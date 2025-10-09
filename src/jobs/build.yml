@@ -1,12 +1,34 @@
 docker:
-  - image: cimg/openjdk:11.0.22
+  - image: cimg/openjdk:17.0-node
 
 working_directory: ~/repo
 
 environment:
   MAVEN_OPTS: -Xmx3200m
+  SONATYPE_SNAPSHOT_URL: https://oss.sonatype.org/content/repositories/snapshots
+  SONATYPE_RELEASE_URL: https://oss.sonatype.org/service/local/staging/deploy/maven2
+
+parameters:
+  setup_remote_docker:
+    type: boolean
+    default: false
+  remote_docker_version:
+    type: string
+    default: "docker23"
+    description: Specific remote docker version.
+  remote_docker_layer_caching:
+    type: boolean
+    default: true
+    description: >
+      Enable Docker layer caching if using remote Docker engine.
 
 steps:
   - checkout
-  - prepare_maven_environment
-  - run: mvn -s settings.xml clean deploy
+  - setup
+  - when:
+      condition: <<parameters.setup_remote_docker>>
+      steps:
+        - setup_remote_docker:
+            docker_layer_caching: <<parameters.remote_docker_layer_caching>>
+            version: <<parameters.remote_docker_version>>
+  - build

@@ -1,29 +1,39 @@
 version: 2.1
 setup: true
+
 orbs:
-  orb-tools: circleci/orb-tools@12.1
+  orb-tools: circleci/orb-tools@12
   shellcheck: circleci/shellcheck@3.2
 
-filters: &filters
-  tags:
-    only: /.*/
-
 workflows:
-  lint-pack:
+  release:
     jobs:
       - orb-tools/lint:
-          filters: *filters
+          name: lint
       - orb-tools/pack:
-          filters: *filters
-      - orb-tools/review:
-          orb_name: <orb-name>
-          filters: *filters
+          name: pack
       - shellcheck/check:
-          filters: *filters
-      # Triggers the next workflow in the Orb Development Kit.
+          name: check
+     
       - orb-tools/continue:
-          pipeline_number: << pipeline.number >>
-          vcs_type: << pipeline.project.type >>
-          orb_name: <orb-name>
-          requires: [orb-tools/lint, orb-tools/pack, orb-tools/review, shellcheck/check]
-          filters: *filters
+          name: continue
+          orb_name: maven
+          pipeline_number: <<pipeline.number>>
+          vcs_type: <<pipeline.project.type>>
+          requires:
+            - lint
+            - pack
+            - check
+      
+      - orb-tools/publish:
+          context: shared-circleci-token
+          orb_name: archmix/maven
+          vcs_type: <<pipeline.project.type>>
+          pub_type: production
+          circleci_token: CIRCLECI_API_TOKEN
+          enable_pr_comment: false
+          requires:
+            - continue
+          filters:
+            branches:
+              only: master
