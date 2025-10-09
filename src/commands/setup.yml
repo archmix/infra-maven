@@ -27,7 +27,6 @@ steps:
       name: Importing GPG Key
       command: |
         echo -e "$MAVEN_GPG_KEY" | gpg --import
-        gpg --list-keys
   - run:
       name: Publish GPG Key
       command: |

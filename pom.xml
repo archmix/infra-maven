@@ -4,7 +4,7 @@
 
   <groupId>org.archmix</groupId>
   <artifactId>infra-maven</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.4-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Archmix Infra Maven Test</name>
@@ -25,9 +25,7 @@
     <maven.source.pluginVersion>3.2.0</maven.source.pluginVersion>
     <maven.gpg.pluginVersion>1.5</maven.gpg.pluginVersion>
 
-    <nexusStagingMavenPluginVersion>1.7.0</nexusStagingMavenPluginVersion>
-    <ossrh.host>https://ossrh-staging-api.central.sonatype.com/service/local</ossrh.host>
-    <ossrh.url>${ossrh.host}/staging/deploy/maven2/</ossrh.url>
+    <ossrh.url>https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/</ossrh.url>
   </properties>
 
   <build>
@@ -154,23 +152,8 @@
             <configuration>
               <publishingServerId>ossrh</publishingServerId>
               <autoPublish>true</autoPublish>
-              <waitUntil>published</waitUntil>
             </configuration>
           </plugin>
-
-          <!-- 
-          <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>${nexusStagingMavenPluginVersion}</version>
-            <extensions>true</extensions>
-            <configuration>
-              <serverId>ossrh</serverId>
-              <nexusUrl>${ossrh.host}</nexusUrl>
-              <autoReleaseAfterClose>true</autoReleaseAfterClose>
-            </configuration>
-          </plugin>
-          -->
         </plugins>
       </build>
     </profile>

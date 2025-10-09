@@ -2,9 +2,5 @@ description: Maven Build & Deploy
 
 steps:
   - run:
-      name: Debug settings.xml
-      command: |
-        cat settings.xml
-  - run:
-      name: Build & deploy
-      command: mvn -s settings.xml clean deploy -X
+      name: Build & test
+      command: mvn -s settings.xml clean test -X
