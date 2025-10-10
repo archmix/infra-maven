@@ -10,7 +10,7 @@ dev-filters: &dev-filters
     ignore: main
 
 workflows:
-  lint:
+  test-or-publish:
     jobs:
       - orb-tools/lint:
           name: lint
@@ -31,8 +31,7 @@ workflows:
             - pack
             - check
           filters: *dev-filters
-  release:
-    jobs:
+      
       - orb-tools/publish:
           context: shared-circleci-token
           orb_name: archmix/maven
