@@ -1,0 +1,6 @@
+description: Maven Build & Deploy
+
+steps:
+  - run:
+      name: Build & test
+      command: mvn -s settings.xml clean test

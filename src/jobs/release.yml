@@ -6,8 +6,5 @@ working_directory: ~/repo
 steps:
   - add_ssh_keys
   - checkout
-
-  - prepare_maven_environment
-  - run: git config user.email "ci@archmix.org"
-  - run: git config user.name "Circle CI"
-  - run: mvn -DskipTests -P release -B -s settings.xml release:clean release:prepare release:perform -DignoreSnapshots=true
+  - setup
+  - release
