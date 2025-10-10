@@ -5,40 +5,58 @@ orbs:
   orb-tools: circleci/orb-tools@12.3.1
   shellcheck: circleci/shellcheck@3.2
 
-dev-filters: &dev-filters
+branch-filter: &branch-filter
   branches:
-    ignore: main
+    ignore: 
+      - dev
+      - master
+
+branch-or-tag-filter: &branch-or-tag-filter
+  branches:
+    ignore: master
+  tags:
+    only: /^v.*/
 
 workflows:
   test-or-publish:
     jobs:
       - orb-tools/lint:
           name: lint
-          filters: *dev-filters
+          filters: *branch-or-tag-filter
       - orb-tools/pack:
           name: pack
-          filters: *dev-filters
+          filters: *branch-or-tag-filter
+          requires: 
+            - lint
       - shellcheck/check:
           name: check
-          filters: *dev-filters
+          filters: *branch-filter
+          requires: 
+            - pack
+
       - orb-tools/continue:
-          name: continue
+          name: test-orb
           orb_name: maven
           pipeline_number: <<pipeline.number>>
           vcs_type: <<pipeline.project.type>>
-          requires:
-            - lint
+          config_path: .circleci/test-orb.yml
+          filters: *branch-filter
+          requires: 
             - pack
-            - check
-          filters: *dev-filters
-      
+
       - orb-tools/publish:
-          context: shared-circleci-token
+          name: publish
+          context: Archmix
           orb_name: archmix/maven
           vcs_type: <<pipeline.project.type>>
           pub_type: production
           circleci_token: CIRCLECI_API_TOKEN
           enable_pr_comment: false
+          requires:
+            - pack
           filters:
             branches:
-              only: master
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+          
