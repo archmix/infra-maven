@@ -3,6 +3,9 @@ docker:
 
 working_directory: ~/repo
 
+environment:
+  MAVEN_OPTS: -Xmx3200m
+
 steps:
   - add_ssh_keys
   - checkout

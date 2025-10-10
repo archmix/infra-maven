@@ -9,8 +9,6 @@ jobs:
       - image: cimg/openjdk:17.0-node
     environment:
       MAVEN_OPTS: -Xmx3200m
-      SONATYPE_SNAPSHOT_URL: https://oss.sonatype.org/content/repositories/snapshots
-      SONATYPE_RELEASE_URL: https://oss.sonatype.org/service/local/staging/deploy/maven2
     steps:
       - checkout
       - maven/setup
@@ -21,15 +19,13 @@ jobs:
       - image: cimg/openjdk:17.0-node
     environment:
       MAVEN_OPTS: -Xmx3200m
-      SONATYPE_SNAPSHOT_URL: https://oss.sonatype.org/content/repositories/snapshots
-      SONATYPE_RELEASE_URL: https://oss.sonatype.org/service/local/staging/deploy/maven2
     steps:
       - checkout
       - maven/setup
       - maven/release
 
 workflows:
-  test-deploy:
+  test-orb:
     jobs:
       - test-build:
           name: build
