@@ -5,22 +5,15 @@ orbs:
   orb-tools: circleci/orb-tools@12.3.1
   shellcheck: circleci/shellcheck@3.2
 
-dev-filters: &dev-filters
-  branches:
-    ignore: main
-
 workflows:
   test-or-publish:
     jobs:
       - orb-tools/lint:
           name: lint
-          filters: *dev-filters
       - orb-tools/pack:
           name: pack
-          filters: *dev-filters
       - shellcheck/check:
           name: check
-          filters: *dev-filters
       - orb-tools/continue:
           name: continue
           orb_name: maven
@@ -30,15 +23,19 @@ workflows:
             - lint
             - pack
             - check
-          filters: *dev-filters
+          filters:
+            branches:
+              ignore: dev
       
       - orb-tools/publish:
-          context: shared-circleci-token
+          context: Archmix
           orb_name: archmix/maven
           vcs_type: <<pipeline.project.type>>
           pub_type: production
           circleci_token: CIRCLECI_API_TOKEN
           enable_pr_comment: false
+          requires:
+            - pack
           filters:
             branches:
-              only: master
+              only: dev
