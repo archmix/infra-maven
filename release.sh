@@ -35,7 +35,7 @@ create_tag()
         VNUM3=$((VNUM3+1));;
     esac
 
-    NEW_VERSION_NUMBER="v$VNUM1.$VNUM2.$VNUM3"
+    NEW_VERSION_NUMBER="$VNUM1.$VNUM2.$VNUM3"
   fi
 
   echo "😎 Creating a new version $NEW_VERSION_NUMBER"
