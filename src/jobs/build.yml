@@ -5,8 +5,6 @@ working_directory: ~/repo
 
 environment:
   MAVEN_OPTS: -Xmx3200m
-  SONATYPE_SNAPSHOT_URL: https://oss.sonatype.org/content/repositories/snapshots
-  SONATYPE_RELEASE_URL: https://oss.sonatype.org/service/local/staging/deploy/maven2
 
 parameters:
   setup_remote_docker:

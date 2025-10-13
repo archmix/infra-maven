@@ -2,11 +2,6 @@ description: Setup maven
 
 steps:
   - run:
-      name: Echoing sonatype urls
-      command: |
-        echo "$SONATYPE_SNAPSHOT_URL"
-        echo "$SONATYPE_RELEASE_URL"
-  - run:
       name: Creating Settings file
       command: |
         cat > settings.xml \<<EOF
